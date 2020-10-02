@@ -1,1 +1,43 @@
+# =================== import libraries =======================
+import requests
+import matplotlib.pyplot as plt
+#json data
+data = requests.get('https://api.rootnet.in/covid19-in/stats/latest').json()
+length = len(data['data']['regional'])
+print("********************Covid-19 - INDIA***********************")
+print("/n Total Active Cases according to covid19india.org : ", data['data']['unofficial-summary'][0]['active'])
+print("/n Total Cases : ", data['data']['unofficial-summary'][0]['total'])
+print("/n Total Recovered So far : ", data['data']['unofficial-summary'][0]['recovered'])
+print("/n Total Dismissed : ", data['data']['unofficial-summary'][0]['deaths'])
+print("/n Total Active Cases according to my calculation: ", data['data']['unofficial-summary'][0]['total']-(data['data']['unofficial-summary'][0]['recovered']+data['data']['unofficial-summary'][0]['deaths']))
+print("********************Covid-19 - INDIA***********************")
+
+#data To plot
+labels = 'Active','Recovered','Dismissed'
+sizes = [data['data']['unofficial-summary'][0]['active'],data['data']['unofficial-summary'][0]['recovered'],data['data']['unofficial-summary'][0]['deaths']]
+colors = ['Green', 'cyan', 'red']
+
+#plot
+plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.axis('equal')
+plt.title("Covid-19 India Live")
+plt.show()
+
+#loop to fetch all the data
+#for i in range(length):
+#        print("|----------------------------------------------|")
+#        print("\t",data['data']['regional'][i]['loc'])
+#       print("|----------------------------------------------|")
+#        print("Confirmed Indian Cases || \t",data['data']['regional'][i]['confirmedCasesIndian'])
+ #       print("|----------------------------------------------|")
+  #      print("Confirmed Foreigners Cases || \t",data['data']['regional'][i]['confirmedCasesForeign'])
+   #     print("|----------------------------------------------|")
+    #    print("Recovered Cases || \t",data['data']['regional'][i]['discharged'])
+     #   print("|----------------------------------------------|")
+      #  print("Active Cases || \n", data['data']['regional'][i]['confirmedCasesIndian']-data['data']['regional'][i]['discharged'])
+       # print("|----------------------------------------------|")
+        #print("Death Cases || \t",data['data']['regional'][i]['deaths'])
+        #print("|----------------------------------------------|")
+        #print("\n\n")
+#===================================== end =====================================
 
